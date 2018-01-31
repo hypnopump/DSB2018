@@ -8,9 +8,13 @@ def IoU(y, y_pred, t=0.5):
 	# Convert to 1 over treshold, 0 under treshold
 	y_pred[y_pred > t] = 1
 	y_pred[y_pred < t] = 0
-	# print("Intersection:", np.sum(np.logical_and(y, y_pred)), "Union:", np.sum(np.logical_or(y, y_pred)))
-	# IoU computation
-	return np.sum(np.logical_and(y, y_pred))/np.sum(np.logical_or(y, y_pred))
+
+	t=0
+	for i in np.arange(0.5, 1.0, 0.05):
+		# IoU computation
+		t += np.sum(np.logical_and(y, y_pred))/np.sum(np.logical_or(y, y_pred))
+
+	return t/np.sum(np.arange(0.5, 1.0, 0.05))
 
 
 a = np.array([[0,0,0,0,1,1,1,1,1,0,0,0,0],
